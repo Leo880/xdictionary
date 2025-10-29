@@ -12,20 +12,26 @@ function App() {
   ];
 
   const handleSearch = () => {
-    const foundWord = dictionary.find(
-      (entry) => entry.word.toLowerCase() === searchTerm.trim().toLowerCase()
-    );
+  if (searchTerm.trim() === "") {
+    setResult("Word not found in the dictionary.");
+    return;
+  }
 
-    if (foundWord) {
-      setResult(foundWord.meaning);
-    } else {
-      setResult("Word not found in the dictionary.");
-    }
-  };
+  const foundWord = dictionary.find(
+    (entry) => entry.word.toLowerCase() === searchTerm.trim().toLowerCase()
+  );
+
+  if (foundWord) {
+    setResult(foundWord.meaning);
+  } else {
+    setResult("Word not found in the dictionary.");
+  }
+};
+
 
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>XDictionary</h1>
+      <h1>XDictionary App</h1>
       <input
         type="text"
         placeholder="Search for a word..."
@@ -46,15 +52,10 @@ function App() {
       </button>
 
       <div style={{ marginTop: "30px" }}>
-        {result && result !== "Word not found in the dictionary." ? (
-          <>
-            <h3>Definition:</h3>
-            <p>{result}</p>
-          </>
-        ) : result ? (
-          <p>{result}</p>
-        ) : null}
-      </div>
+        <h3>Definition:</h3>
+        <p>{result ? result : ""}</p>
+        </div>
+
     </div>
   );
 }
